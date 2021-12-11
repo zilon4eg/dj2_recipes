@@ -18,7 +18,5 @@ from django.urls import path
 from calculator.views import dish
 
 urlpatterns = [
-    path('omlet/', dish),
-    path('pasta/', dish),
-    path('buter/', dish),
+    path('<recipe>/', dish, name='dish'),
 ]

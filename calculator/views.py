@@ -21,16 +21,17 @@ DATA = {
 }
 
 
-def dish(request):
-    servings = request.GET.get('servings', 1)
-    req = str(request)
-    dish = str(req.split('/')[1])
-    ingridients = {}
-    for ingridient in DATA[dish]:
-        ingridients[ingridient] = round(DATA[dish][ingridient] * int(servings), 2)
-    context = {
-        'recipe': ingridients
-    }
+def dish(request, recipe):
+    if recipe in DATA.keys():
+        servings = request.GET.get('servings', 1)
+        ingridients = {}
+        for ingridient in DATA[recipe]:
+            ingridients[ingridient] = round(DATA[recipe][ingridient] * int(servings), 2)
+        context = {
+            'recipe': ingridients
+        }
+    else:
+        context = {}
     return render(request, 'calculator/index.html', context)
 
 
